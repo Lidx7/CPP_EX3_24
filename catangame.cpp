@@ -144,7 +144,6 @@ void CatanGame::buildSettlement(Player& player, bool isInitial) {
     int vertexNum;
     std::cin >> vertexNum;
 
-    // Check if the settlement can be placed
     bool canPlace = true;
     for (const auto& p : players) {
         for (const auto& s : p.settlements) {
@@ -186,7 +185,6 @@ void CatanGame::buildRoad(Player& player, bool isInitial) {
     int end;
     std::cin >> end;
 
-    // Check if the road can be placed
     bool canPlace = false;
     for (const auto& s : player.settlements) {
         if (s.second == start || s.second == end) {
@@ -268,7 +266,6 @@ void CatanGame::setupInitialSettlements() {
             buildSettlement(currentPlayer, true);
             
             if (round == 1) {
-                // Distribute resources for the second settlement
                 for (const auto& settlement : currentPlayer.settlements) {
                     if (settlement == currentPlayer.settlements.back()) {
                         for (const auto& adjacentTile : getAdjacentTiles(settlement.first, settlement.second)) {
@@ -339,20 +336,17 @@ void CatanGame::autoSetupInitialSettlements() {
             int playerIndex = (round == 0) ? i : (players.size() - 1 - i);
             Player& currentPlayer = players[playerIndex];
             
-            // Place settlement
-            int tileNum = rand() % 19;  // 19 tiles in standard Catan
-            int vertexNum = rand() % 6;  // 6 vertices per tile
+            int tileNum = rand() % 19; 
+            int vertexNum = rand() % 6; 
             currentPlayer.settlements.emplace_back(tileNum, vertexNum);
             std::cout << currentPlayer.name << " placed a settlement at tile " << tileNum << ", vertex " << vertexNum << "\n";
             
-            // Place road
-            int startVertex = rand() % 54;  // 54 vertices in standard Catan
+            int startVertex = rand() % 54;  
             int endVertex = board.adjacencyList[startVertex][rand() % board.adjacencyList[startVertex].size()];
             currentPlayer.roads.emplace_back(startVertex, endVertex);
             std::cout << currentPlayer.name << " placed a road from vertex " << startVertex << " to " << endVertex << "\n";
             
             if (round == 1) {
-                // Distribute initial resources for second settlement
                 for (const auto& adjacentTile : getAdjacentTiles(tileNum, vertexNum)) {
                     if (board.tiles[adjacentTile].terrain != TerrainType::Desert) {
                         currentPlayer.addResource(board.terrainToResource(board.tiles[adjacentTile].terrain));
@@ -364,7 +358,6 @@ void CatanGame::autoSetupInitialSettlements() {
 }
 
 void CatanGame::autoTrade(Player& player) {
-    // Simple random trade
     Resource give = static_cast<Resource>(rand() % 5);
     Resource receive = static_cast<Resource>(rand() % 5);
     if (give != receive && player.resources[give] > 0) {

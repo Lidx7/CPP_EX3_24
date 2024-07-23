@@ -58,6 +58,9 @@ public:
     std::string getName() const override;
 };
 
+
+
+
 class Player {
 public:
     std::string name;
@@ -77,6 +80,9 @@ public:
     void buildRoad(bool isFree = false);
 };
 
+
+
+
 class Board {
 public:
     std::vector<Tile> tiles;
@@ -90,17 +96,11 @@ public:
     void printMap();
 
     void printRow(int start, int end, int padding);
-
     void printRowTop(int start, int end);
-
     void printRowMiddle1(int start, int end);
-
     void printRowMiddle(int start, int end);
-
     void printRowMiddle2(int start, int end);
-
     void printRowBottom(int start, int end);
-
     void addHexagonRow(std::vector<std::string> &mapLines, int start, int end, int padding);
 
 private:
@@ -109,6 +109,9 @@ private:
     std::string formatNumber(int num) const;
     char terrainToChar(TerrainType terrain) const;
 };
+
+
+
 
 class CatanGame {
 private:
